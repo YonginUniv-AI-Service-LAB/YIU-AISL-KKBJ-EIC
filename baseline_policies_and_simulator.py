@@ -45,6 +45,10 @@ class BaselineBridgeSimulator(BridgeSimulator):
             df['freeze_thaw_cycles'] = df['n_ft']
             
         super().__init__(df)
+        self.best_threshold_grade = 2.0
+
+    def set_threshold(self, grade: float):
+        self.best_threshold_grade = grade
 
     def simulate_policy(self, policy_type="제안", ablation_mode=None, seed=None):
         if seed is not None:
@@ -84,7 +88,7 @@ class BaselineBridgeSimulator(BridgeSimulator):
             if policy_type == "법정":
                 t_star = policy_legal(bridge_eta, bridge_beta, bridge_weather, alpha_val)
             elif policy_type == "임계값":
-                t_star = policy_threshold(bridge_eta, bridge_beta, threshold_grade=2.0, N_FT=bridge_weather, alpha=alpha_val)
+                t_star = policy_threshold(bridge_eta, bridge_beta, threshold_grade=self.best_threshold_grade, N_FT=bridge_weather, alpha=alpha_val)
             elif policy_type == "Frangopol":
                 t_star = policy_frangopol(bridge_aadt, cm_val, cf_val, bridge_weather, alpha_val)
             else:

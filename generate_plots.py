@@ -71,6 +71,7 @@ def run_simulation_and_plot_fig1():
 
     # 1) 임계값 grid search로 최적 임계 등급 탐색
     best_threshold_grade = grid_search_threshold(bridges_df)
+    simulator.set_threshold(best_threshold_grade)
 
     policies = ["법정", "임계값", "Frangopol", "제안"]
     lccs = []
