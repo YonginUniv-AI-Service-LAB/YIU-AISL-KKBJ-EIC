@@ -14,7 +14,7 @@ def gp_estimate(inspection_years, condition_grades, future_years):
         * Matern(length_scale=10.0, nu=2.5)
         + WhiteKernel(noise_level=0.1)
     )
-    gp = GaussianProcessRegressor(kernel=kernel, alpha=0.05, normalize_y=True)
+    gp = GaussianProcessRegressor(kernel=kernel, alpha=0.05, normalize_y=True, random_state=42)
     gp.fit(X, y)
     mean, std = gp.predict(Xf, return_std=True)
     return mean, std
